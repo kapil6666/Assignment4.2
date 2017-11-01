@@ -1,5 +1,17 @@
-lines = LOAD '/user/hadoop/HDFS_File.txt' AS (line:chararray);
-words = FOREACH lines GENERATE FLATTEN(TOKENIZE(line)) as word;
-grouped = GROUP words BY word;
-wordcount = FOREACH grouped GENERATE group, COUNT(words);
-DUMP wordcount;
+#1
+grunt> student_name_concat = foreach student_details Generate CONCAT (firstname, lastname);
+#2
+grunt> student_name_tokenize = foreach student_details  Generate TOKENIZE(name);
+#3
+resRel = FOREACH grpRel GENERATE group, SUM(selRel.temp);
+#4
+#5
+resRel = FOREACH grpRel GENERATE group, MAX(selRel.temp), MIN(selRel.temp), AVG(selRel.temp);
+#6
+limRel = LIMIT grpRel 2
+#7
+STORE resRel INTO '/home/acadgild/hadoop/maxout' USING PigStorage(',');
+#8 
+grunt> Relation_name2 = DISTINCT Relatin_name1;
+#10 
+grunt> isempty_data = filter cogroup_data by IsEmpty(emp_sales);
